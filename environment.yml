@@ -1,0 +1,9 @@
+name: pgx-canada
+channels:
+  - defaults
+dependencies:
+  - requests
+  - pandas
+  - python=3.11
+  - jupyter
+prefix: /Users/lailafaroun/miniconda3/envs/pgx-canada
