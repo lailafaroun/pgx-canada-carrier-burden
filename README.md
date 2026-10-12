@@ -9,25 +9,37 @@ Answer two linked questions:
 2. How diverse are the study populations in the evidence supporting these gene-drug guidelines, compared with the population the guidelines serve?
 
 ## Data Sources
-- **Variant and guideline curation** - CPIC (allele tables, guidelines) and PharmGKB (gene-drug annotations, evidence)
+- **Variant and guideline curation** - CPIC (allele tables, guidelines) and ClinPGx, formerly PharmGKB (gene-drug annotations, evidence)
 - **Clinical significance cross-check** - ClinVar
 - **Variant annotation** - Ensembl VEP
-- **Allele frequencies by population group** - gnomAD, version TBD
-- **Population-group counts for Canada** - Statistics Canada census table, table ID and year TBD
+- **Allele frequencies by population group** - gnomAD v4.1.2 (GRCh38)
+- **Population-group counts for Canada** - Statistics Canada 2021 census, table 98-10-0351-01
 
 ## Gene and Variant Selection
-**Genes:** 5 genes, each with a CPIC Level A gene-drug pair (genes TBD)
+**Genes:** 5 genes, each with a CPIC Level A gene-drug pair.
 
-**Variants:** well-defined single-nucleotide variants with rsIDs, each verified against the CPIC allele tables before inclusion.
+**Variants:** one well-defined single-nucleotide variant with an rsID per gene, verified against the CPIC allele tables, present in gnomAD v4, and common enough in at least one ancestry group to estimate.
 
-Selected genes and variants: TBD
+| Gene | Variant | rsID | CPIC Level A drug(s) |
+|---|---|---|---|
+| ABCG2 | Q141K | rs2231142 | rosuvastatin |
+| VKORC1 | -1639G>A | rs9923231 | warfarin |
+| CYP3A5 | `*3` | rs776746 | tacrolimus |
+| CYP4F2 | `*3` (V433M) | rs2108622 | warfarin |
+| NUDT15 | `*3` (R139C) | rs116855232 | azathioprine, mercaptopurine, thioguanine |
+
+## Analysis Decisions
+1. **gnomAD data:** exomes and genomes combined (AC and AN added) as the primary dataset; exomes only (four genes) and genomes only (all five genes) as sensitivity checks. The VKORC1 variant is in genomes only.
+2. **What is counted:** the share of people carrying at least one copy of the variant allele (gnomAD's alternate allele), 1 − (1 − AF)². For CYP3A5, a second estimate gives expressers (at least one working copy), 1 − AF(`*3`)². These are carrier estimates, not the share needing a prescribing change. The five-gene panel is shown with and without the two most common variants.
+3. **Groups:** all 10 gnomAD genetic ancestry groups are kept with original labels; small samples are flagged, not excluded.
+4. **Precision flags:** rows (variant × group) with an allele number below 2,500 are flagged `low_an` (about ±2 percentage points at a frequency of 50%); rows with fewer than 20 alternate alleles are flagged `few_alt`; AC = 0 means not observed. Flagged rows are kept and marked.
 
 ## Methods
-1. **Curate** variants from CPIC and PharmGKB; cross-check in ClinVar
+1. **Curate** variants from CPIC and ClinPGx, cross-checked in ClinVar
 2. **Annotate** variants with Ensembl VEP
-3. **Extract** allele counts and frequencies per gnomAD population group
-4. **Convert** allele frequencies to carrier probabilities (Hardy-Weinberg equilibrium)
-5. **Combine** variants within a gene into a gene-level carrier probability
+3. **Extract** allele counts and frequencies per gnomAD ancestry group
+4. **Convert** allele frequencies to carrier probabilities (Hardy-Weinberg equilibrium) with Wilson confidence intervals
+5. **Combine** the genes into a five-gene panel probability
 6. **Weight** by Statistics Canada population-group counts for a national estimate, with a sensitivity analysis on group mapping
 7. **Count** study populations in the evidence behind each gene-drug guideline
 
@@ -35,19 +47,18 @@ Data processing is in Python; figures and statistics are in R.
 
 ## Environment Setup
 ```bash
-conda create -n pgx-canada python=3.11 pandas requests jupyter -y
+conda env create -f environment.yml
 conda activate pgx-canada
 ```
 ```r
-install.packages(c("tidyverse"))
+renv::restore()
 ```
 
 ## Project Status
-In progress - setup and data-availability check underway
+In progress - setup, data check, variant table and gnomAD frequency extraction complete; VEP annotation and carrier estimates next
 
 ## Repository Structure
 - `README.md` - project documentation
 - `scripts/` - Python data processing and R analysis scripts
 - `figures/` - saved plots and visualizations
-- `data/` - variant table, data-availability note, and downloaded source files
-
+- `data/` - variant table, data-availability note, gnomAD frequency tables and downloaded source files (raw files not tracked in git)
