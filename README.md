@@ -35,6 +35,14 @@ Answer two linked questions:
 4. **Precision flags:** rows (variant × group) with an allele number below 2,500 are flagged `low_an` (about ±2 percentage points at a frequency of 50%); rows with fewer than 20 alternate alleles are flagged `few_alt`; AC = 0 means not observed. Flagged rows are kept and marked.
 5. **Panel:** the probability of carrying at least one of the five variants is 1 − ∏(1 − cᵢ), assuming independence (the variants are on different chromosomes, but population structure can still correlate them). It is reported for all five genes and without CYP3A5 and VKORC1, the two with the highest median carrier probability; the all-five panel is at or above 99% in eight of ten groups. The panel is carriage of at least one variant, not the share needing a prescribing change.
 
+## Census-to-gnomAD mapping
+
+The primary mapping assigns Canadian census groups to gnomAD ancestry groups, using European (non-Finnish) as an approximate proxy for “Not a visible minority.” The primary mapping covers 34,476,095 of 36,328,475 people (94.90%). The sensitivity scenario excludes “Not a visible minority” and covers 7,786,820 people (21.43%); it is not a national estimate.
+
+Filipino, Southeast Asian, Multiple visible minorities, and Visible minority n.i.e. are excluded from both current scenarios. The selected census table does not separately identify Indigenous people, who are included within “Not a visible minority” along with people of other ancestries. European (Finnish), Remaining, Amish, and Ashkenazi Jewish gnomAD groups receive no census weight. Mapping Filipino and Southeast Asian groups to East Asian is planned as a Step 8 sensitivity analysis and has not yet been implemented.
+
+These estimates are descriptive approximations. Census identity categories should not be interpreted as direct measures of genetic ancestry.
+
 ## Methods
 1. **Curate** variants from CPIC and ClinPGx, cross-checked in ClinVar
 2. **Annotate** variants with Ensembl VEP
@@ -56,7 +64,7 @@ renv::restore()
 ```
 
 ## Project Status
-In progress - setup, data check, variant table and gnomAD frequency extraction and VEP annotation complete; carrier estimates next
+In progress - setup, data check, variant table, gnomAD frequency extraction, VEP annotation, carrier estimates, panel estimates and census mapping complete; weighted national estimate and sensitivity analysis next
 
 ## Repository Structure
 - `README.md` - project documentation
