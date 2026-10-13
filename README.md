@@ -33,6 +33,7 @@ Answer two linked questions:
 2. **What is counted:** the share of people carrying at least one copy of the variant allele (gnomAD's alternate allele), 1 − (1 − AF)². For CYP3A5, a second estimate gives expressers (at least one working copy), 1 − AF(`*3`)². These are carrier estimates, not the share needing a prescribing change. The five-gene panel is shown with and without the two most common variants.
 3. **Groups:** all 10 gnomAD genetic ancestry groups are kept with original labels; small samples are flagged, not excluded.
 4. **Precision flags:** rows (variant × group) with an allele number below 2,500 are flagged `low_an` (about ±2 percentage points at a frequency of 50%); rows with fewer than 20 alternate alleles are flagged `few_alt`; AC = 0 means not observed. Flagged rows are kept and marked.
+5. **Panel:** the probability of carrying at least one of the five variants is 1 − ∏(1 − cᵢ), assuming independence (the variants are on different chromosomes, but population structure can still correlate them). It is reported for all five genes and without CYP3A5 and VKORC1, the two with the highest median carrier probability; the all-five panel is at or above 99% in eight of ten groups. The panel is carriage of at least one variant, not the share needing a prescribing change.
 
 ## Methods
 1. **Curate** variants from CPIC and ClinPGx, cross-checked in ClinVar
