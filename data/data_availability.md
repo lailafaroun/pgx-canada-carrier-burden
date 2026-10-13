@@ -1,6 +1,6 @@
 # Data availability note
 
-Last updated: 2026-10-12. Sources downloaded 2026-10-07 to 2026-10-10; gnomAD counts pulled through the API on 2026-10-11.
+Last updated: 2026-10-12. Sources downloaded 2026-10-07 to 2026-10-12; gnomAD counts pulled through the API on 2026-10-11.
 
 | Source | Version / table | Used for | Access | Local file |
 |---|---|---|---|---|
@@ -9,14 +9,23 @@ Last updated: 2026-10-12. Sources downloaded 2026-10-07 to 2026-10-10; gnomAD co
 | ClinPGx (formerly PharmGKB) | Annotation downloads | Variant annotations and study populations | Downloads page | `data/raw/clinpgx/` |
 | ClinVar | Records for the five selected variants | Clinical significance cross-check | Website | `data/variant_table.csv` |
 | Statistics Canada | 2021 census, table 98-10-0351-01 | Population-group counts for Canada | CSV download | `data/raw/statcanada/98100351-eng/` |
+| Ensembl VEP | Ensembl release 116 (June 2026); GRCh38; archive jun2026.archive.ensembl.org | Transcript consequences, HGVS coding/protein annotations, SIFT and PolyPhen predictions for five selected variants | Manual web-tool run; downloaded 2026-10-12 | `data/vep_results.txt`; processed using `scripts/04_vep_annotation.py` into `data/vep_annotations.csv` | 
+
+### VEP annotation and identity check
+Annotations come from the Ensembl VEP web tool (release 116, June 2026, GRCh38), run on 2026-10-12 with the MANE, HGVS, SIFT and PolyPhen options on. The raw output is saved in `data/vep_results.txt`, and `scripts/04_vep_annotation.py` turns it into `data/vep_annotations.csv`: one row per variant, using the MANE Select transcript. Cells with no value are written as "not applicable".
+
+Identity check (2026-10-12): the rsID, GRCh38 position and (where VEP gives them) HGVS cDNA and protein names were compared with the ClinVar record and the CPIC allele definition table. ABCG2, CYP3A5, CYP4F2 and NUDT15 agree on all of these. VKORC1's variant lies upstream of the transcript, so VEP gives no HGVS name; it was matched on rsID, position and ClinVar's c.-1639G>A record. For ABCG2, VKORC1, CYP3A5 and CYP4F2 the genomic allele is the complement of the transcript (HGVS c.) allele, because these genes lie on the reverse strand; NUDT15 reads the same on both.
+
+Consequences: missense for ABCG2 (Q141K), CYP4F2 (V433M) and NUDT15 (R139C); intron_variant for CYP3A5 `*3` (CPIC describes it as a splicing defect); upstream_gene_variant for VKORC1. SIFT and PolyPhen are computational predictions of protein impact, not evidence of drug response: ABCG2 Q141K and NUDT15 R139C are predicted tolerated and benign even though CPIC classes them as decreased and no-function alleles. This check covers variant identity and nomenclature only, not every ClinVar submission or CPIC recommendation.
 
 ## Key findings
 - **gnomAD:** 807,162 individuals (730,947 exomes; 76,215 genomes). European groups are 77% and Middle Eastern 0.38%. In the summary table, Amish are counted within Remaining and Finns within European.
-- **gnomAD counts for the five variants:** 86 rows by variant, dataset and group, and 50 combined rows (5 variants × 10 groups). AF equals AC/AN in both files, the combined AN equals exome AN plus genome AN, and one row was spot-checked by hand against the browser.
+- **gnomAD counts for the five variants:** 86 rows by variant, dataset and group, and 50 combined rows (5 variants × 10 groups). AF equals AC/AN in both files, the combined AN equals exome AN plus genome AN, and one row (ABCG2, Middle Eastern) was checked by hand.
 - **Coverage:** the VKORC1 variant is non-coding and appears only in the genomes. Amish are genomes-only (AN about 910 for every variant, and NUDT15 has no alternate alleles observed). The lowest AN is VKORC1 in Middle Eastern (292).
 - **Precision flags** (in `data/gnomad_variant_frequencies_combined.csv`): 7 rows `low_an` (five Amish rows, VKORC1 Middle Eastern, VKORC1 Remaining), 1 row `few_alt` and `not_observed` (NUDT15 Amish).
 - **CPIC:** 93 Level A gene-drug pairs across 21 genes (levels: A 93, B 15, C 207, retired 4). This project uses Level A only. Allele definition, phenotype and frequency tables are per-gene Excel downloads from the CPIC gene pages.
 - **Selected variants:** five variants, one per gene (ABCG2, VKORC1, CYP3A5, CYP4F2, NUDT15); see `data/variant_table.csv`.
+- **VEP:** the five variants were annotated on their MANE Select transcripts (three missense, one intronic, one upstream); see the VEP section above.
 - **ClinPGx:** `variantAnnotations/study_parameters.tsv` has 36,083 rows; population is in `Biogeographical Groups`, and about 27% are Unknown. European and East Asian are the largest named groups.
 - **Statistics Canada:** Canada total 36,328,475 (persons in private households, 25% sample data), in 13 categories. Indigenous people are not a separate category and fall under "Not a visible minority". Canada's row excludes some incompletely enumerated reserves.
 
@@ -25,6 +34,7 @@ Last updated: 2026-10-12. Sources downloaded 2026-10-07 to 2026-10-10; gnomAD co
 2. **What is counted.** For each gene, the share of people carrying at least one copy of the variant allele (gnomAD's alternate allele), calculated as 1 − (1 − AF)². For CYP3A5, a second estimate gives expressers (at least one working copy), 1 − AF(`*3`)², counting `*3` as the only non-working allele; other no-function alleles (`*6`, `*7`) are ignored, so expressers are somewhat overestimated, most in African ancestry groups. These are carrier estimates, not the share needing a prescribing change. The five-gene panel (at least one of five) is shown with and without the two most common variants (CYP3A5 `*3` and VKORC1 A allele), because it approaches 100% in several groups. Genotype-to-phenotype mappings and recommendations are to be checked against the current CPIC guidelines.
 3. **gnomAD groups.** All 10 groups are kept with their original labels. Small samples and low or missing allele numbers are flagged, not excluded. Mapping to census groups is documented separately.
 4. **Precision flags.** Rows (variant × ancestry group) with an allele number below 2,500 are flagged `low_an`: at this AN the approximate 95% margin of error is about ±2 percentage points even at a frequency of 50%, the worst case. Rows with fewer than 20 observed alternate alleles (AC < 20) are flagged `few_alt`: at that count the approximate 95% margin of error is about ±44% of the estimated frequency. AC = 0 means the allele was not observed, not that its frequency is zero. A missing or zero AN is stored as blank. Flagged rows are kept and marked in the results, and are dropped in a sensitivity check. Confidence intervals use the Wilson method.
+5. **Annotation.** Variants are annotated on the MANE Select transcript.
 
 | Gene | gnomAD alternate allele | Same as |
 |---|---|---|

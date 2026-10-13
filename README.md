@@ -55,7 +55,7 @@ renv::restore()
 ```
 
 ## Project Status
-In progress - setup, data check, variant table and gnomAD frequency extraction complete; VEP annotation and carrier estimates next
+In progress - setup, data check, variant table and gnomAD frequency extraction and VEP annotation complete; carrier estimates next
 
 ## Repository Structure
 - `README.md` - project documentation
