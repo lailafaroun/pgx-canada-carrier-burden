@@ -1,6 +1,6 @@
 # Data availability note
 
-Last updated: 2026-10-12. Sources downloaded 2026-10-07 to 2026-10-12; gnomAD counts pulled through the API on 2026-10-11.
+Last updated: 2026-10-15. Sources downloaded 2026-10-07 to 2026-10-12; gnomAD counts pulled through the API on 2026-10-11.
 
 | Source | Version / table | Used for | Access | Local file |
 |---|---|---|---|---|
@@ -9,7 +9,7 @@ Last updated: 2026-10-12. Sources downloaded 2026-10-07 to 2026-10-12; gnomAD co
 | ClinPGx (formerly PharmGKB) | Annotation downloads | Variant annotations and study populations | Downloads page | `data/raw/clinpgx/` |
 | ClinVar | Records for the five selected variants | Clinical significance cross-check | Website | `data/variant_table.csv` |
 | Statistics Canada | 2021 census, table 98-10-0351-01 | Population-group counts for Canada | CSV download | `data/raw/statcanada/98100351-eng/` |
-| Ensembl VEP | Ensembl release 116 (June 2026); GRCh38; archive jun2026.archive.ensembl.org | Transcript consequences, HGVS coding/protein annotations, SIFT and PolyPhen predictions for five selected variants | Manual web-tool run; downloaded 2026-10-12 | `data/vep_results.txt`; processed using `scripts/04_vep_annotation.py` into `data/vep_annotations.csv` | 
+| Ensembl VEP | Ensembl release 116 (June 2026); GRCh38; archive jun2026.archive.ensembl.org | Transcript consequences, HGVS coding/protein annotations, SIFT and PolyPhen predictions for five selected variants | Manual web-tool run; downloaded 2026-10-12 | `data/vep_results.txt`; processed using `scripts/04_vep_annotation.py` into `data/vep_annotations.csv` |
 
 ### VEP annotation and identity check
 Annotations come from the Ensembl VEP web tool (release 116, June 2026, GRCh38), run on 2026-10-12 with the MANE, HGVS, SIFT and PolyPhen options on. The raw output is saved in `data/vep_results.txt`, and `scripts/04_vep_annotation.py` turns it into `data/vep_annotations.csv`: one row per variant, using the MANE Select transcript. Cells with no value are written as "not applicable".
@@ -25,10 +25,11 @@ Consequences: missense for ABCG2 (Q141K), CYP4F2 (V433M) and NUDT15 (R139C); int
 - **Precision flags** (in `data/gnomad_variant_frequencies_combined.csv`): 7 rows `low_an` (five Amish rows, VKORC1 Middle Eastern, VKORC1 Remaining), 1 row `few_alt` and `not_observed` (NUDT15 Amish).
 - **CPIC:** 93 Level A gene-drug pairs across 21 genes (levels: A 93, B 15, C 207, retired 4). This project uses Level A only. Allele definition, phenotype and frequency tables are per-gene Excel downloads from the CPIC gene pages.
 - **Selected variants:** five variants, one per gene (ABCG2, VKORC1, CYP3A5, CYP4F2, NUDT15); see `data/variant_table.csv`.
-- **Panel (Step 5):** the all-five panel is at or above 99% in eight of ten groups (lowest: African/African American 69%, South Asian 98.7%), so the reduced panel (without CYP3A5 and VKORC1) is the more informative summary; see `data/panel_by_group.csv`.
+- **Panel (Step 5):** the all-five panel is at or above 99% in eight of ten groups (lowest: African/African American 69%, South Asian 98.7%), so the reduced panel (without CYP3A5 and VKORC1) is the more informative summary (23% in African/African American to 79% in East Asian); see `data/panel_by_group.csv`.
 - **VEP:** the five variants were annotated on their MANE Select transcripts (three missense, one intronic, one upstream); see the VEP section above.
 - **ClinPGx:** `variantAnnotations/study_parameters.tsv` has 36,083 rows; population is in `Biogeographical Groups`, and about 27% are Unknown. European and East Asian are the largest named groups.
 - **Statistics Canada:** Canada total 36,328,475 (persons in private households, 25% sample data), in 13 categories. Indigenous people are not a separate category and fall under "Not a visible minority". Canada's row excludes some incompletely enumerated reserves.
+- **Census mapping (Step 6):** 13 census categories mapped to six gnomAD groups; the primary mapping covers 94.90% of the census total, and the racialized-population-only scenario (without "Not a visible minority") covers 21.43%; see the census mapping section.
 
 ## Decisions
 1. **gnomAD data.** The full gnomAD v4 release is used (not the non-UKB subset). Primary: exomes and genomes combined (AC and AN added). Sensitivity checks: exomes only (four genes; the VKORC1 variant is not in the exome data) and genomes only (all five genes, so every gene uses the same dataset). VKORC1 therefore uses genomes in the primary analysis too. Exome and genome samples differ in composition and sequencing, so differences between them are read cautiously.
@@ -37,6 +38,7 @@ Consequences: missense for ABCG2 (Q141K), CYP4F2 (V433M) and NUDT15 (R139C); int
 4. **Precision flags.** Rows (variant × ancestry group) with an allele number below 2,500 are flagged `low_an`: at this AN the approximate 95% margin of error is about ±2 percentage points even at a frequency of 50%, the worst case. Rows with fewer than 20 observed alternate alleles (AC < 20) are flagged `few_alt`: at that count the approximate 95% margin of error is about ±44% of the estimated frequency. AC = 0 means the allele was not observed, not that its frequency is zero. A missing or zero AN is stored as blank. Flagged rows are kept and marked in the results, and are dropped in a sensitivity check. Confidence intervals use the Wilson method.
 5. **Annotation.** Variants are annotated on the MANE Select transcript.
 6. **Panel estimates.** The probability of carrying at least one of the selected variants is 1 − ∏(1 − cᵢ), where cᵢ is each gene's carrier probability. There is one variant per gene, so nothing is combined within a gene, and NUDT15's three drugs share one variant and are counted once. The product assumes the variants are independent. The five variants lie on different chromosomes (4, 7, 13, 16 and 19), so they are not linked, but population structure and mixed ancestry can still correlate them within a group, so the combined probability is an approximation. Panel bounds combine the lower and upper gene-level bounds, which makes them conservative. The panel is reported two ways: all five genes, and without CYP3A5 and VKORC1, the two genes with the highest median carrier probability across groups (0.99 and 0.63, against 0.48, 0.19 and 0.02 for CYP4F2, ABCG2 and NUDT15). The all-five panel is at or above 99% in eight of the ten groups, so it separates groups poorly and the reduced panel is the more informative summary. Panel rows are flagged when any contributing gene row is flagged (3 of 10 groups for the all-five panel, 1 of 10 for the reduced panel). The panel describes carriage of at least one of the five variants, not the proportion of people who would need a prescribing change.
+7. **Census mapping.** Census groups are mapped to gnomAD groups as described in the census mapping section below. The primary mapping assigns "Not a visible minority" to European (non-Finnish) and covers 94.90% of the census total; a racialized-population-only mapping (21.43% coverage) is a sensitivity scenario.
 
 | Gene | gnomAD alternate allele | Same as |
 |---|---|---|
@@ -47,15 +49,21 @@ Consequences: missense for ABCG2 (Q141K), CYP4F2 (V433M) and NUDT15 (R139C); int
 | NUDT15 | T | `*3` (R139C) |
 
 ## Mapping issues
-gnomAD (genetic ancestry groups), the census (self-reported population groups), ClinPGx (biogeographical groups) and CPIC's frequency tables (their own group labels) don't match each other. A mapping table and a sensitivity analysis on it will be needed. No gnomAD group corresponds to Indigenous peoples.
+gnomAD (genetic ancestry groups), the census (self-reported population groups), ClinPGx (biogeographical groups) and CPIC's frequency tables (their own group labels) don't match each other. The mapping and its sensitivity analysis are described in the census mapping section below. No gnomAD group corresponds to Indigenous peoples.
+
+## Census-to-gnomAD mapping
+
+Census counts in `data/census_canada_counts.csv` come from the 2021 Statistics Canada table 98-10-0351-01 (Canada, total age, total gender, 2021 counts); the 13 categories sum to 36,328,475. Mapping decisions are in `data/census_gnomad_mapping.csv` and implemented in `scripts/07_census_mapping.py`. Census population-group categories and gnomAD genetic ancestry groups are not equivalent, so every mapping is an approximate proxy. The mapping file was generated on 2026-10-13.
+
+The primary mapping assigns Arab and West Asian to Middle Eastern; Black to African/African American; Chinese, Japanese and Korean to East Asian; Latin American to Admixed American; South Asian to South Asian; and "Not a visible minority" to European (non-Finnish). It covers 34,476,095 people (94.90% of the census total). Excluded are Filipino, Southeast Asian, Multiple visible minorities and Visible minority n.i.e. (1,852,380 people), because no gnomAD group is a defensible match. "Not a visible minority" includes Indigenous people and people of other ancestries, so its mapping to European (non-Finnish) is the weakest in the analysis; the selected table cannot separate Indigenous people.
+
+Primary weights: European (non-Finnish) 0.7741, South Asian 0.0746, East Asian 0.0590, African/African American 0.0449, Middle Eastern 0.0306 and Admixed American 0.0168. They sum to 1 across six gnomAD groups. Finnish, Remaining, Amish and Ashkenazi Jewish receive no weight; their group-level results remain available separately.
+
+One sensitivity scenario is implemented so far: excluding "Not a visible minority" (racialized population only, 7,786,820 people, coverage 21.43%); it describes that subset and is not a national estimate. Further scenarios, such as assigning Filipino and Southeast Asian to East Asian and handling Finnish, are planned.
+
+These estimates are descriptive approximations. Census identity categories should not be interpreted as direct measures of genetic ancestry.
 
 ## Still open
 - Counting unit for the evidence count (rows, variant annotations or papers; studies or participants)
 - Evidence base: ClinPGx-annotated literature or the papers cited in CPIC guidelines
-- Handling of Indigenous peoples in the census table (exclude, or separate them using table 98-10-0324-01)
-
-## Census-to-gnomAD mapping
-
-| Data file | Generated by | Last updated |
-| --- | --- | --- |
-| `data/census_gnomad_mapping.csv` | `scripts/07_census_mapping.py` | 2026-10-13 |
+- Indigenous peoples are inside "Not a visible minority" in the primary mapping; check whether table 98-10-0324-01 can separate them

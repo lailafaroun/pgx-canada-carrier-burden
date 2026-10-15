@@ -70,4 +70,4 @@ In progress - setup, data check, variant table, gnomAD frequency extraction, VEP
 - `README.md` - project documentation
 - `scripts/` - Python data processing and R analysis scripts
 - `figures/` - saved plots and visualizations
-- `data/` - variant table, data-availability note, gnomAD frequency tables and downloaded source files (raw files not tracked in git)
+- `data/` - variant table, data-availability note, gnomAD frequency tables, census and panel tables, and downloaded source files (raw files not tracked in git)
