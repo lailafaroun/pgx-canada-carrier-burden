@@ -1,6 +1,6 @@
 # Data availability note
 
-Last updated: 2026-10-15. Sources downloaded 2026-10-07 to 2026-10-12; gnomAD counts pulled through the API on 2026-10-11.
+Last updated: 2026-10-18. Sources downloaded 2026-10-07 to 2026-10-12; gnomAD counts pulled through the API on 2026-10-11.
 
 | Source | Version / table | Used for | Access | Local file |
 |---|---|---|---|---|
@@ -30,6 +30,7 @@ Consequences: missense for ABCG2 (Q141K), CYP4F2 (V433M) and NUDT15 (R139C); int
 - **ClinPGx:** `variantAnnotations/study_parameters.tsv` has 36,083 rows; population is in `Biogeographical Groups`, and about 27% are Unknown. European and East Asian are the largest named groups.
 - **Statistics Canada:** Canada total 36,328,475 (persons in private households, 25% sample data), in 13 categories. Indigenous people are not a separate category and fall under "Not a visible minority". Canada's row excludes some incompletely enumerated reserves.
 - **Census mapping (Step 6):** 13 census categories mapped to six gnomAD groups; the primary mapping covers 94.90% of the census total, and the racialized-population-only scenario (without "Not a visible minority") covers 21.43%; see the census mapping section.
+- **National estimates (Step 7):** primary mapping (coverage 94.9%): five-gene panel 98.4%, panel without CYP3A5 and VKORC1 61.7%, NUDT15 2.7% and CYP3A5 expressers 21.5%; racialized-population-only scenario (coverage 21.4%): NUDT15 10.3% and CYP3A5 expressers 50.9%; see `data/national_estimates.csv`.
 
 ## Decisions
 1. **gnomAD data.** The full gnomAD v4 release is used (not the non-UKB subset). Primary: exomes and genomes combined (AC and AN added). Sensitivity checks: exomes only (four genes; the VKORC1 variant is not in the exome data) and genomes only (all five genes, so every gene uses the same dataset). VKORC1 therefore uses genomes in the primary analysis too. Exome and genome samples differ in composition and sequencing, so differences between them are read cautiously.
@@ -39,6 +40,7 @@ Consequences: missense for ABCG2 (Q141K), CYP4F2 (V433M) and NUDT15 (R139C); int
 5. **Annotation.** Variants are annotated on the MANE Select transcript.
 6. **Panel estimates.** The probability of carrying at least one of the selected variants is 1 − ∏(1 − cᵢ), where cᵢ is each gene's carrier probability. There is one variant per gene, so nothing is combined within a gene, and NUDT15's three drugs share one variant and are counted once. The product assumes the variants are independent. The five variants lie on different chromosomes (4, 7, 13, 16 and 19), so they are not linked, but population structure and mixed ancestry can still correlate them within a group, so the combined probability is an approximation. Panel bounds combine the lower and upper gene-level bounds, which makes them conservative. The panel is reported two ways: all five genes, and without CYP3A5 and VKORC1, the two genes with the highest median carrier probability across groups (0.99 and 0.63, against 0.48, 0.19 and 0.02 for CYP4F2, ABCG2 and NUDT15). The all-five panel is at or above 99% in eight of the ten groups, so it separates groups poorly and the reduced panel is the more informative summary. Panel rows are flagged when any contributing gene row is flagged (3 of 10 groups for the all-five panel, 1 of 10 for the reduced panel). The panel describes carriage of at least one of the five variants, not the proportion of people who would need a prescribing change.
 7. **Census mapping.** Census groups are mapped to gnomAD groups as described in the census mapping section below. The primary mapping assigns "Not a visible minority" to European (non-Finnish) and covers 94.90% of the census total; a racialized-population-only mapping (21.43% coverage) is a sensitivity scenario.
+8. **National estimate.** National values are weighted averages of the group-level values, using the census weights of the mapped gnomAD groups (the weights sum to 1 within each scenario). For the panels, the group panel values from Step 5 are averaged; national gene values are not recombined. Intervals are the weighted group-level Wilson bounds, so they reflect gnomAD sampling uncertainty only, not census rounding or sampling, the group mapping, or the Hardy-Weinberg and independence assumptions. Each estimate reports the share of weight that falls on flagged rows. Results are in `data/national_estimates.csv`, from `scripts/08_national_estimate.py`.
 
 | Gene | gnomAD alternate allele | Same as |
 |---|---|---|
@@ -67,3 +69,4 @@ These estimates are descriptive approximations. Census identity categories shoul
 - Counting unit for the evidence count (rows, variant annotations or papers; studies or participants)
 - Evidence base: ClinPGx-annotated literature or the papers cited in CPIC guidelines
 - Indigenous peoples are inside "Not a visible minority" in the primary mapping; check whether table 98-10-0324-01 can separate them
+- Step 8 sensitivity scenarios not yet run: Filipino and Southeast Asian assigned to East Asian, handling of the Finnish group, exome-only and genome-only frequencies, and excluding flagged rows

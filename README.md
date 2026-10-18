@@ -63,8 +63,28 @@ conda activate pgx-canada
 renv::restore()
 ```
 
+## Results: National Estimates
+
+Weighted national estimates of the share of people carrying at least one copy of each variant allele (gnomAD alternate allele), under two census mappings. Intervals combine the group-level Wilson bounds, so they reflect gnomAD sampling uncertainty only, not census, mapping or model assumptions.
+
+| Quantity | Primary mapping (94.9% coverage) | Racialized population only (21.4% coverage) |
+|---|---|---|
+| ABCG2 (Q141K carriers) | 21.7% (21.5-21.9) | 24.1% (23.6-24.6) |
+| VKORC1 (-1639G>A carriers) | 60.0% (59.3-60.7) | 55.6% (54.0-57.1) |
+| CYP3A5 (`*3` carriers) | 96.3% (96.3-96.4) | 85.3% (85.0-85.6) |
+| CYP3A5 expressers (at least one working copy) | 21.5% (21.3-21.8) | 50.9% (50.2-51.6) |
+| CYP4F2 (V433M carriers) | 50.1% (49.8-50.3) | 48.0% (47.3-48.6) |
+| NUDT15 (`*3` carriers) | 2.7% (2.6-2.8) | 10.3% (10.0-10.7) |
+| At least one of the five variants | 98.4% (98.4-98.5) | 93.3% (93.1-93.5) |
+| At least one of ABCG2, CYP4F2, NUDT15 | 61.7% (61.4-62.0) | 63.2% (62.5-64.0) |
+
+- The estimates depend strongly on the weights. The primary mapping is about 77% European (non-Finnish), so variants that are rare in Europeans look rare nationally: NUDT15 is 2.7% (primary) against 10.3% when only the racialized population is weighted, and CYP3A5 expressers are 21.5% against 50.9%.
+- The five-gene panel is 98.4% in the primary mapping, driven by the very common CYP3A5 `*3` and VKORC1 variants, so it separates little; the panel without them is 61.7%.
+- VKORC1 and the all-five panel put 3.1% (primary) and 13.5% (racialized only) of their weight on a group with a flagged row (VKORC1 in Middle Eastern, low allele number).
+- These are carriage estimates, not the share needing a prescribing change. In the primary mapping, "Not a visible minority" is assigned to European (non-Finnish) and includes Indigenous people; the racialized-population-only scenario is not a national estimate.
+
 ## Project Status
-In progress - setup, data check, variant table, gnomAD frequency extraction, VEP annotation, carrier estimates, panel estimates and census mapping complete; weighted national estimate and sensitivity analysis next
+In progress - setup, data check, variant table, gnomAD frequency extraction, VEP annotation, carrier estimates, panel estimates, census mapping and national estimates complete; further sensitivity scenarios and the results table next
 
 ## Repository Structure
 - `README.md` - project documentation
