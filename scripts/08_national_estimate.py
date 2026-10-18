@@ -1,6 +1,9 @@
 from pathlib import Path
 
 import pandas as pd
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from pgx_utils import weighted_average
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -58,9 +61,9 @@ for scenario, (include_col, weight_col, coverage_col) in scenarios.items():
                 f"Missing {kind} rows for {gene} in {scenario}"
             )
 
-            estimate = (values["weight"] * values[estimate_col]).sum()
-            low = (values["weight"] * values[low_col]).sum()
-            high = (values["weight"] * values[high_col]).sum()
+            estimate = weighted_average(values[estimate_col].tolist(), values["weight"].tolist())
+            low = weighted_average(values[low_col].tolist(), values["weight"].tolist())
+            high = weighted_average(values[high_col].tolist(), values["weight"].tolist())
 
             assert low <= estimate <= high, (
                 f"Invalid interval for {gene} {kind} in {scenario}"
@@ -96,9 +99,9 @@ for scenario, (include_col, weight_col, coverage_col) in scenarios.items():
             f"Missing panel rows for {panel_name} in {scenario}"
         )
 
-        estimate = (panel_rows["weight"] * panel_rows["panel_carrier"]).sum()
-        low = (panel_rows["weight"] * panel_rows["panel_low"]).sum()
-        high = (panel_rows["weight"] * panel_rows["panel_high"]).sum()
+        estimate = weighted_average(panel_rows["panel_carrier"].tolist(), panel_rows["weight"].tolist())
+        low = weighted_average(panel_rows["panel_low"].tolist(), panel_rows["weight"].tolist())
+        high = weighted_average(panel_rows["panel_high"].tolist(), panel_rows["weight"].tolist())
 
         assert low <= estimate <= high, (
             f"Invalid interval for {panel_name} in {scenario}"

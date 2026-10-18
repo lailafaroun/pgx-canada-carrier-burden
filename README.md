@@ -37,11 +37,11 @@ Answer two linked questions:
 
 ## Census-to-gnomAD mapping
 
-The primary mapping assigns Canadian census groups to gnomAD ancestry groups, using European (non-Finnish) as an approximate proxy for “Not a visible minority.” The primary mapping covers 34,476,095 of 36,328,475 people (94.90%). The sensitivity scenario excludes “Not a visible minority” and covers 7,786,820 people (21.43%); it is not a national estimate.
+The primary mapping assigns Canadian census groups to gnomAD ancestry groups, using European (non-Finnish) as an approximate proxy for “Not a visible minority.” The primary mapping covers 34,476,095 of 36,328,475 people (94.90%). S1 excludes “Not a visible minority” and covers 7,786,820 people (21.43%); it describes only the mapped subset and is not a national estimate.
 
-Filipino, Southeast Asian, Multiple visible minorities, and Visible minority n.i.e. are excluded from both current scenarios. The selected census table does not separately identify Indigenous people, who are included within “Not a visible minority” along with people of other ancestries. European (Finnish), Remaining, Amish, and Ashkenazi Jewish gnomAD groups receive no census weight. Mapping Filipino and Southeast Asian groups to East Asian is planned as a Step 8 sensitivity analysis and has not yet been implemented.
+S2 assigns Filipino and Southeast Asian census groups to East Asian, increasing mapped coverage to 98.61%. S3 excludes flagged gnomAD groups separately for each estimate and renormalizes the remaining weights. S4 uses exome-only frequencies and S5 uses genome-only frequencies; VKORC1 is unavailable in exomes. These scenarios test mapping, flagged data, and sequencing-source choices.
 
-These estimates are descriptive approximations. Census identity categories should not be interpreted as direct measures of genetic ancestry.
+The selected census table does not separately identify Indigenous people, who are included within “Not a visible minority” along with people of other ancestries. European (Finnish), Remaining, Amish, and Ashkenazi Jewish gnomAD groups receive no census weight.
 
 ## Methods
 1. **Curate** variants from CPIC and ClinPGx, cross-checked in ClinVar
@@ -65,9 +65,9 @@ renv::restore()
 
 ## Results: National Estimates
 
-Weighted national estimates of the share of people carrying at least one copy of each variant allele (gnomAD alternate allele), under two census mappings. Intervals combine the group-level Wilson bounds, so they reflect gnomAD sampling uncertainty only, not census, mapping or model assumptions.
+Weighted national estimates of the share of people carrying at least one copy of each variant allele (gnomAD alternate allele), under the primary census mapping, with additional mapping, flagged-data, and sequencing-source sensitivity scenarios reported separately. Intervals combine the group-level Wilson bounds, so they reflect gnomAD sampling uncertainty only, not census, mapping or model assumptions.
 
-| Quantity | Primary mapping (94.9% coverage) | Racialized population only (21.4% coverage) |
+| Quantity | Primary mapping (94.9% coverage) | S1: excludes “Not a visible minority” (21.4% coverage) |
 |---|---|---|
 | ABCG2 (Q141K carriers) | 21.7% (21.5-21.9) | 24.1% (23.6-24.6) |
 | VKORC1 (-1639G>A carriers) | 60.0% (59.3-60.7) | 55.6% (54.0-57.1) |
@@ -78,13 +78,29 @@ Weighted national estimates of the share of people carrying at least one copy of
 | At least one of the five variants | 98.4% (98.4-98.5) | 93.3% (93.1-93.5) |
 | At least one of ABCG2, CYP4F2, NUDT15 | 61.7% (61.4-62.0) | 63.2% (62.5-64.0) |
 
-- The estimates depend strongly on the weights. The primary mapping is about 77% European (non-Finnish), so variants that are rare in Europeans look rare nationally: NUDT15 is 2.7% (primary) against 10.3% when only the racialized population is weighted, and CYP3A5 expressers are 21.5% against 50.9%.
+- The estimates depend strongly on the weights. The primary mapping is about 77% European (non-Finnish), so variants that are rare in Europeans look rare nationally: NUDT15 is 2.7% (primary) against 10.3% under S1, which excludes “Not a visible minority”, and CYP3A5 expressers are 21.5% against 50.9%.
 - The five-gene panel is 98.4% in the primary mapping, driven by the very common CYP3A5 `*3` and VKORC1 variants, so it separates little; the panel without them is 61.7%.
-- VKORC1 and the all-five panel put 3.1% (primary) and 13.5% (racialized only) of their weight on a group with a flagged row (VKORC1 in Middle Eastern, low allele number).
-- These are carriage estimates, not the share needing a prescribing change. In the primary mapping, "Not a visible minority" is assigned to European (non-Finnish) and includes Indigenous people; the racialized-population-only scenario is not a national estimate.
+- VKORC1 and the all-five panel put 3.1% (primary) and 13.5% (S1: excludes “Not a visible minority”) of their weight on a group with a flagged row (VKORC1 in Middle Eastern, low allele number).
+- These are carriage estimates, not the share needing a prescribing change. In the primary mapping, "Not a visible minority" is assigned to European (non-Finnish) and includes Indigenous people; S1, which excludes “Not a visible minority,” is not a national estimate.
 
+## Results: Sensitivity Analysis
+
+S0 is the primary mapping. S1 excludes “Not a visible minority” and has only 21.43% coverage, so its range is shown separately from the range across S0 and S2–S5. These are scenario ranges, not confidence intervals.
+
+| Quantity | S0 baseline | Range, all scenarios | Range excluding S1 |
+|---|---:|---:|---:|
+| ABCG2 | 21.669% | 2.663% | 1.318% |
+| CYP3A5 | 96.336% | 11.015% | 0.122% |
+| CYP3A5_expressers | 21.540% | 29.443% | 0.955% |
+| CYP4F2 | 50.068% | 2.175% | 1.296% |
+| NUDT15 | 2.731% | 7.616% | 0.634% |
+| VKORC1 | 60.009% | 5.891% | 2.038% |
+| all_five_panel | 98.431% | 5.206% | 0.106% |
+| reduced_panel | 61.666% | 2.560% | 1.668% |
+
+S2 tests an expanded census mapping; S3 excludes flagged population groups per estimate; S4 and S5 compare exome-only and genome-only frequencies. The ranges describe sensitivity to these analysis choices and should not be interpreted as sampling uncertainty.
 ## Project Status
-In progress - setup, data check, variant table, gnomAD frequency extraction, VEP annotation, carrier estimates, panel estimates, census mapping and national estimates complete; further sensitivity scenarios and the results table next
+Step 8 complete — scenario weights, S2–S5 sensitivity estimates, combined results, sensitivity summary and documentation complete. Project remains in progress for further interpretation and refinement.
 
 ## Repository Structure
 - `README.md` - project documentation

@@ -1,0 +1,40 @@
+scenario,census_group,gnomad_group
+S0,Not a visible minority,European (non-Finnish)
+S0,South Asian,South Asian
+S0,Chinese,East Asian
+S0,Black,African/African American
+S0,Filipino,
+S0,Arab,Middle Eastern
+S0,Latin American,Admixed American
+S0,Southeast Asian,
+S0,West Asian,Middle Eastern
+S0,Korean,East Asian
+S0,Japanese,East Asian
+S0,Multiple visible minorities,
+S0,"Visible minority, n.i.e.",
+S1,Not a visible minority,
+S1,South Asian,South Asian
+S1,Chinese,East Asian
+S1,Black,African/African American
+S1,Filipino,
+S1,Arab,Middle Eastern
+S1,Latin American,Admixed American
+S1,Southeast Asian,
+S1,West Asian,Middle Eastern
+S1,Korean,East Asian
+S1,Japanese,East Asian
+S1,Multiple visible minorities,
+S1,"Visible minority, n.i.e.",
+S2,Not a visible minority,European (non-Finnish)
+S2,South Asian,South Asian
+S2,Chinese,East Asian
+S2,Black,African/African American
+S2,Filipino,East Asian
+S2,Arab,Middle Eastern
+S2,Latin American,Admixed American
+S2,Southeast Asian,East Asian
+S2,West Asian,Middle Eastern
+S2,Korean,East Asian
+S2,Japanese,East Asian
+S2,Multiple visible minorities,
+S2,"Visible minority, n.i.e.",
