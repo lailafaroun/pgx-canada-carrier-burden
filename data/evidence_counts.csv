@@ -1,0 +1,12 @@
+group,unique_pmid_group_pairs,unique_annotation_group_pairs,ABCG2_unique_pmids,CYP3A5_unique_pmids,CYP4F2_unique_pmids,NUDT15_unique_pmids,VKORC1_unique_pmids,share_of_pmid_group_pairs,group_type
+European,126,197,11,64,15,3,41,0.1431818181818182,Population label
+East Asian,250,383,37,152,27,17,48,0.2840909090909091,Population label
+African American/Afro-Caribbean,20,35,0,10,4,0,8,0.022727272727272728,Population label
+Near Eastern,40,59,4,15,9,2,15,0.045454545454545456,Population label
+Central/South Asian,21,42,0,7,7,1,12,0.023863636363636365,Population label
+Sub-Saharan African,11,23,0,6,1,0,5,0.0125,Population label
+Latino,21,33,1,13,1,4,3,0.023863636363636365,Population label
+American,3,10,0,2,1,0,1,0.003409090909090909,Population label
+Multiple groups,206,287,22,128,20,6,41,0.2340909090909091,Multiple groups
+Unknown,181,268,31,112,13,5,30,0.2056818181818182,Unknown
+Non-population / in vitro,1,1,0,0,1,0,0,0.0011363636363636363,Non-population
