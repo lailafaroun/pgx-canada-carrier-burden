@@ -37,7 +37,7 @@ account for 5.8% of mapped evidence pairs compared with 33.0% of the mapped cens
 population. These differences are descriptive and do not by themselves establish
 bias or differences in evidence quality.
 
-## Limitations and next steps
+## Limitations
 
 Census categories are not equivalent to genetic ancestry groups or literature
 population labels. The primary mapping of “Not a visible minority” to European
@@ -47,6 +47,3 @@ covers 21.43% of Canada's census population and is not nationally representative
 Publication-label counts are not participant counts. CYP3A5 expresser estimates
 consider *3 only, and panel estimates assume independence among variants. Confidence
 intervals do not capture mapping or model uncertainty.
-
-Next steps are to review the final methods and caveats, rerun the analysis scripts,
-verify generated tables and figures, and complete a final repository and Git audit.
