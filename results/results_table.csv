@@ -1,79 +1,89 @@
-gene,group,carrier_rate,low,high,sensitivity_low,sensitivity_high
-ABCG2,Admixed American,0.3522210629125939,0.3471376862947876,0.3573471635787636,not applicable,not applicable
-ABCG2,African/African American,0.0528229077966245,0.0506199710547515,0.0551175187099113,not applicable,not applicable
-ABCG2,Amish,0.2741408414127422,0.2369197266450402,0.3153266261280575,not applicable,not applicable
-ABCG2,Ashkenazi Jewish,0.1265329437545653,0.1213652232901394,0.1318956164599189,not applicable,not applicable
-ABCG2,East Asian,0.507455678233205,0.501519563540114,0.5134044685635833,not applicable,not applicable
-ABCG2,European (Finnish),0.1405183040472046,0.1368264093102909,0.1442971543814014,not applicable,not applicable
-ABCG2,European (non-Finnish),0.2095708098367044,0.2085650950424215,0.2105803872445981,not applicable,not applicable
-ABCG2,Middle Eastern,0.1105848549917648,0.1000736350603921,0.122086355297161,not applicable,not applicable
-ABCG2,Remaining,0.2181130715800709,0.213712827897323,0.222584259016856,not applicable,not applicable
-ABCG2,South Asian,0.1722245399260022,0.1688672173701818,0.1756378548131312,not applicable,not applicable
-CYP3A5 (expressers),Admixed American,0.3829325354551942,0.3755374610187979,0.3904020319389876,not applicable,not applicable
-CYP3A5 (expressers),African/African American,0.9148399499323502,0.9128132712820336,0.9168290441119972,not applicable,not applicable
-CYP3A5 (expressers),Amish,0.1292981975223147,0.1020939476165034,0.1627465769641738,not applicable,not applicable
-CYP3A5 (expressers),Ashkenazi Jewish,0.1443749999999999,0.1376115821804656,0.151426400566992,not applicable,not applicable
-CYP3A5 (expressers),East Asian,0.4563547845693485,0.4493769310805136,0.4633689615603689,not applicable,not applicable
-CYP3A5 (expressers),European (Finnish),0.1330255091484439,0.1278989348387029,0.1383327997467394,not applicable,not applicable
-CYP3A5 (expressers),European (non-Finnish),0.1296418332988194,0.1287416287375489,0.1305476166611511,not applicable,not applicable
-CYP3A5 (expressers),Middle Eastern,0.1819116050794506,0.165549339311707,0.1995946616502681,not applicable,not applicable
-CYP3A5 (expressers),Remaining,0.2619146174948219,0.2566576646420666,0.2672494288872211,not applicable,not applicable
-CYP3A5 (expressers),South Asian,0.4699537244753664,0.4640088404528485,0.4759212654465702,not applicable,not applicable
-CYP4F2,Admixed American,0.4164567899999999,0.4112795292331367,0.4216625818750863,not applicable,not applicable
-CYP4F2,African/African American,0.1859043631786864,0.1821015853092106,0.1897724819272426,not applicable,not applicable
-CYP4F2,Amish,0.3635116531819827,0.3232941952808624,0.4063616518145638,not applicable,not applicable
-CYP4F2,Ashkenazi Jewish,0.574270639522725,0.567188997427779,0.5813450735860513,not applicable,not applicable
-CYP4F2,East Asian,0.4623377668139508,0.4563479811393661,0.4683526427649732,not applicable,not applicable
-CYP4F2,European (Finnish),0.3537884519481803,0.3488619646801082,0.3587546686521892,not applicable,not applicable
-CYP4F2,European (non-Finnish),0.5068562251137653,0.5056976502218837,0.5080152880203128,not applicable,not applicable
-CYP4F2,Middle Eastern,0.6157474099073552,0.6005415351161508,0.6308429497053997,not applicable,not applicable
-CYP4F2,Remaining,0.5013021779072805,0.4962637828948765,0.506350863442808,not applicable,not applicable
-CYP4F2,South Asian,0.6282458421615784,0.6243778893474502,0.6321050060586304,not applicable,not applicable
-NUDT15,Admixed American,0.0994923522894999,0.096189398162479,0.1028989455876381,not applicable,not applicable
-NUDT15,African/African American,0.0021891470443089,0.0017641833062576,0.0027162688242089,not applicable,not applicable
-NUDT15,Amish,0.0,0.0,0.008371628870358,not applicable,not applicable
-NUDT15,Ashkenazi Jewish,0.0061445861409422,0.0050078616590335,0.007537866183962,not applicable,not applicable
-NUDT15,East Asian,0.1958773012627589,0.1908638497088337,0.2009974250221737,not applicable,not applicable
-NUDT15,European (Finnish),0.041195633567566,0.0390831747547723,0.0434183864476538,not applicable,not applicable
-NUDT15,European (non-Finnish),0.005094316319868,0.0049159214379566,0.0052791592393011,not applicable,not applicable
-NUDT15,Middle Eastern,0.0229688810465203,0.0182229245699898,0.0289234696133799,not applicable,not applicable
-NUDT15,Remaining,0.026321544683619,0.0246088129612289,0.0281508924894771,not applicable,not applicable
-NUDT15,South Asian,0.1252896841965927,0.1223262885448386,0.1283169030216692,not applicable,not applicable
-VKORC1,Admixed American,0.6296421834662808,0.6201922143688201,0.6390387666571901,not applicable,not applicable
-VKORC1,African/African American,0.1895922771551794,0.1844593750693673,0.1948419308139147,not applicable,not applicable
-VKORC1,Amish,0.6880789828906139,0.6512870479294528,0.7233402285598814,not applicable,not applicable
-VKORC1,Ashkenazi Jewish,0.7494236313151692,0.7325063534796004,0.7657895702891223,not applicable,not applicable
-VKORC1,East Asian,0.988276453196431,0.986302473873682,0.9899808475582276,not applicable,not applicable
-VKORC1,European (Finnish),0.6289830902221668,0.6176087356630348,0.6402809309212428,not applicable,not applicable
-VKORC1,European (non-Finnish),0.6130115486242034,0.6084723288350444,0.6175413659076922,not applicable,not applicable
-VKORC1,Middle Eastern,0.7830737474197786,0.72642638346942,0.832429628033752,not applicable,not applicable
-VKORC1,Remaining,0.6271847227532776,0.6016566444676875,0.6523403173492601,not applicable,not applicable
-VKORC1,South Asian,0.3244277764714294,0.3069927102580475,0.3424718656267935,not applicable,not applicable
-all_five_panel,Admixed American,0.994201497183382,0.9936586502976028,0.9947039899529914,not applicable,not applicable
-reduced_panel,Admixed American,0.6596018053251996,0.6526173143912342,0.666574287684789,not applicable,not applicable
-all_five_panel,African/African American,0.6872888752076429,0.6798911273705164,0.6947010766900668,not applicable,not applicable
-reduced_panel,African/African American,0.2305952973285447,0.2248734614092005,0.2365097056609508,not applicable,not applicable
-all_five_panel,Amish,0.9993553003277984,0.9986994791136512,0.99969358490904,not applicable,not applicable
-reduced_panel,Amish,0.5379991041280792,0.4836191495540324,0.5969542642026722,not applicable,not applicable
-all_five_panel,Ashkenazi Jewish,0.9994790860619956,0.9993712085331724,0.9995699172260992,not applicable,not applicable
-reduced_panel,Ashkenazi Jewish,0.6304243580591491,0.6216216050440977,0.6393033564566101,not applicable,not applicable
-all_five_panel,East Asian,0.999827741656624,0.99978516023645,0.9998621913939806,not applicable,not applicable
-reduced_panel,East Asian,0.7870502327087816,0.7807241877093489,0.7933002484242684,not applicable,not applicable
-all_five_panel,European (Finnish),0.9990624621788212,0.9989371206259476,0.9991741239012568,not applicable,not applicable
-reduced_panel,European (Finnish),0.4674733458762848,0.4599213530695929,0.4751088848912131,not applicable,not applicable
-all_five_panel,European (non-Finnish),0.9993248899559332,0.9993044088677796,0.9993448597430784,not applicable,not applicable
-reduced_panel,European (non-Finnish),0.612190505607721,0.610715015231833,0.6136679516214659,not applicable,not applicable
-all_five_panel,Middle Eastern,0.9993391411305248,0.9989284712284634,0.9996052524193226,not applicable,not applicable
-reduced_panel,Middle Eastern,0.6660897733292952,0.647067631067898,0.6852857382605644,not applicable,not applicable
-all_five_panel,Remaining,0.9971907149961527,0.9968092379629482,0.9975368362053176,not applicable,not applicable
-reduced_panel,Remaining,0.6203381281005863,0.6136657656266575,0.6270328758802284,not applicable,not applicable
-all_five_panel,South Asian,0.9865505157061129,0.9855282184542322,0.9875257522877628,not applicable,not applicable
-reduced_panel,South Asian,0.7308262963099335,0.7259974202858827,0.7356370779498056,not applicable,not applicable
-ABCG2,Canada (weighted),0.21668515,0.21480021,0.21861313,0.2144424137383624,0.2276239725918439
-CYP3A5,Canada (weighted),0.96336326,0.96268178,0.96402449,0.962145779317864,0.96336326
-CYP3A5 (expressers),Canada (weighted),0.21540244,0.2131348,0.21771819,0.2149187360929266,0.2244670934291395
-CYP4F2,Canada (weighted),0.50068462,0.4984231,0.50294739,0.4883249377420977,0.5012804424204153
-NUDT15,Canada (weighted),0.02731321,0.02643864,0.02824711,0.0273132070749042,0.0336546072147694
-VKORC1,Canada (weighted),0.60008556,0.59303263,0.60694205,0.5943119552791741,0.6146893408503484
-all_five_panel,Canada (weighted),0.98430656,0.98385812,0.98474617,0.9838322599718894,0.9848904727388716
-reduced_panel,Canada (weighted),0.61666332,0.61383166,0.61950443,0.6063961711861887,0.6230732950045688
+quantity,group,estimate,low,high,an,flagged,weight_on_flagged_rows,coverage,sensitivity_low,sensitivity_high
+ABCG2,Admixed American,0.352221,0.347138,0.357347,59994,False,,,,
+VKORC1,Admixed American,0.629642,0.620192,0.639039,15262,False,,,,
+CYP3A5,Admixed American,0.954005,0.951937,0.955996,28914,False,,,,
+CYP3A5_expressers,Admixed American,0.382933,0.375537,0.390402,28914,False,,,,
+CYP4F2,Admixed American,0.416457,0.411280,0.421663,60000,False,,,,
+NUDT15,Admixed American,0.099492,0.096189,0.102899,59570,False,,,,
+all_five_panel,Admixed American,0.994201,0.993659,0.994704,,False,,,,
+reduced_panel,Admixed American,0.659602,0.652617,0.666574,,False,,,,
+ABCG2,African/African American,0.052823,0.050620,0.055118,75010,False,,,,
+VKORC1,African/African American,0.189592,0.184459,0.194842,41504,False,,,,
+CYP3A5,African/African American,0.498484,0.493617,0.503361,67082,False,,,,
+CYP3A5_expressers,African/African American,0.914840,0.912813,0.916829,67082,False,,,,
+CYP4F2,African/African American,0.185904,0.182102,0.189772,74984,False,,,,
+NUDT15,African/African American,0.002189,0.001764,0.002716,74874,False,,,,
+all_five_panel,African/African American,0.687289,0.679891,0.694701,,False,,,,
+reduced_panel,African/African American,0.230595,0.224873,0.236510,,False,,,,
+ABCG2,Amish,0.274141,0.236920,0.315327,912,True,,,,
+VKORC1,Amish,0.688079,0.651287,0.723340,906,True,,,,
+CYP3A5,Amish,0.995526,0.992778,0.997252,912,True,,,,
+CYP3A5_expressers,Amish,0.129298,0.102094,0.162747,912,True,,,,
+CYP4F2,Amish,0.363512,0.323294,0.406362,910,True,,,,
+NUDT15,Amish,0.000000,0.000000,0.008372,912,True,,,,
+all_five_panel,Amish,0.999355,0.998699,0.999694,,True,,,,
+reduced_panel,Amish,0.537999,0.483619,0.596954,,True,,,,
+ABCG2,Ashkenazi Jewish,0.126533,0.121365,0.131896,29600,False,,,,
+VKORC1,Ashkenazi Jewish,0.749424,0.732506,0.765790,3472,False,,,,
+CYP3A5,Ashkenazi Jewish,0.994375,0.993787,0.994909,19120,False,,,,
+CYP3A5_expressers,Ashkenazi Jewish,0.144375,0.137612,0.151426,19120,False,,,,
+CYP4F2,Ashkenazi Jewish,0.574271,0.567189,0.581345,29604,False,,,,
+NUDT15,Ashkenazi Jewish,0.006145,0.005008,0.007538,29574,False,,,,
+all_five_panel,Ashkenazi Jewish,0.999479,0.999371,0.999570,,False,,,,
+reduced_panel,Ashkenazi Jewish,0.630424,0.621622,0.639303,,False,,,,
+ABCG2,East Asian,0.507456,0.501520,0.513404,44848,False,,,,
+VKORC1,East Asian,0.988276,0.986302,0.989981,5172,False,,,,
+CYP3A5,East Asian,0.931001,0.928471,0.933457,33052,False,,,,
+CYP3A5_expressers,East Asian,0.456355,0.449377,0.463369,33052,False,,,,
+CYP4F2,East Asian,0.462338,0.456348,0.468353,44848,False,,,,
+NUDT15,East Asian,0.195877,0.190864,0.200997,44572,False,,,,
+all_five_panel,East Asian,0.999828,0.999785,0.999862,,False,,,,
+reduced_panel,East Asian,0.787050,0.780724,0.793300,,False,,,,
+ABCG2,European (Finnish),0.140518,0.136826,0.144297,63990,False,,,,
+VKORC1,European (Finnish),0.628983,0.617609,0.640281,10558,False,,,,
+CYP3A5,European (Finnish),0.995255,0.994853,0.995626,31400,False,,,,
+CYP3A5_expressers,European (Finnish),0.133026,0.127899,0.138333,31400,False,,,,
+CYP4F2,European (Finnish),0.353788,0.348862,0.358755,63984,False,,,,
+NUDT15,European (Finnish),0.041196,0.039083,0.043418,63946,False,,,,
+all_five_panel,European (Finnish),0.999062,0.998937,0.999174,,False,,,,
+reduced_panel,European (Finnish),0.467473,0.459921,0.475109,,False,,,,
+ABCG2,European (non-Finnish),0.209571,0.208565,0.210580,1179872,False,,,,
+VKORC1,European (non-Finnish),0.613012,0.608472,0.617541,67986,False,,,,
+CYP3A5,European (non-Finnish),0.995502,0.995436,0.995566,1026314,False,,,,
+CYP3A5_expressers,European (non-Finnish),0.129642,0.128742,0.130548,1026314,False,,,,
+CYP4F2,European (non-Finnish),0.506856,0.505698,0.508015,1179948,False,,,,
+NUDT15,European (non-Finnish),0.005094,0.004916,0.005279,1179418,False,,,,
+all_five_panel,European (non-Finnish),0.999325,0.999304,0.999345,,False,,,,
+reduced_panel,European (non-Finnish),0.612191,0.610715,0.613668,,False,,,,
+ABCG2,Middle Eastern,0.110585,0.100074,0.122086,6062,False,,,,
+VKORC1,Middle Eastern,0.783074,0.726426,0.832430,292,True,,,,
+CYP3A5,Middle Eastern,0.990876,0.988902,0.992515,3748,False,,,,
+CYP3A5_expressers,Middle Eastern,0.181912,0.165549,0.199595,3748,False,,,,
+CYP4F2,Middle Eastern,0.615747,0.600542,0.630843,6056,False,,,,
+NUDT15,Middle Eastern,0.022969,0.018223,0.028923,6060,False,,,,
+all_five_panel,Middle Eastern,0.999339,0.998928,0.999605,,True,,,,
+reduced_panel,Middle Eastern,0.666090,0.647068,0.685286,,False,,,,
+ABCG2,Remaining,0.218113,0.213713,0.222584,62502,False,,,,
+VKORC1,Remaining,0.627185,0.601657,0.652340,2116,True,,,,
+CYP3A5,Remaining,0.980153,0.979266,0.981004,48942,False,,,,
+CYP3A5_expressers,Remaining,0.261915,0.256658,0.267249,48942,False,,,,
+CYP4F2,Remaining,0.501302,0.496264,0.506351,62502,False,,,,
+NUDT15,Remaining,0.026322,0.024609,0.028151,62422,False,,,,
+all_five_panel,Remaining,0.997191,0.996809,0.997537,,True,,,,
+reduced_panel,Remaining,0.620338,0.613666,0.627033,,False,,,,
+ABCG2,South Asian,0.172225,0.168867,0.175638,91064,False,,,,
+VKORC1,South Asian,0.324428,0.306993,0.342472,4824,False,,,,
+CYP3A5,South Asian,0.926039,0.923787,0.928237,45452,False,,,,
+CYP3A5_expressers,South Asian,0.469954,0.464009,0.475921,45452,False,,,,
+CYP4F2,South Asian,0.628246,0.624378,0.632105,91062,False,,,,
+NUDT15,South Asian,0.125290,0.122326,0.128317,90716,False,,,,
+all_five_panel,South Asian,0.986551,0.985528,0.987526,,False,,,,
+reduced_panel,South Asian,0.730826,0.725997,0.735637,,False,,,,
+ABCG2,Canada (weighted),0.216685,0.214800,0.218613,,,0.000000,0.949010,0.214442,0.227624
+VKORC1,Canada (weighted),0.600086,0.593033,0.606942,,,0.030587,0.949010,0.594312,0.614689
+CYP3A5,Canada (weighted),0.963363,0.962682,0.964024,,,0.000000,0.949010,0.962146,0.963363
+CYP3A5_expressers,Canada (weighted),0.215402,0.213135,0.217718,,,0.000000,0.949010,0.214919,0.224467
+CYP4F2,Canada (weighted),0.500685,0.498423,0.502947,,,0.000000,0.949010,0.488325,0.501280
+NUDT15,Canada (weighted),0.027313,0.026439,0.028247,,,0.000000,0.949010,0.027313,0.033655
+all_five_panel,Canada (weighted),0.984307,0.983858,0.984746,,,0.030587,0.949010,0.983832,0.984890
+reduced_panel,Canada (weighted),0.616663,0.613832,0.619504,,,0.000000,0.949010,0.606396,0.623073

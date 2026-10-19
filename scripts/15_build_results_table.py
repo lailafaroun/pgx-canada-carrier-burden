@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import pandas as pd
 
 DATA = Path("data")
@@ -10,85 +11,77 @@ panels = pd.read_csv(DATA / "panel_by_group.csv")
 national = pd.read_csv(DATA / "national_estimates.csv")
 sensitivity = pd.read_csv(DATA / "sensitivity_summary.csv")
 
+QUANTITIES = [
+    "ABCG2", "VKORC1", "CYP3A5", "CYP3A5_expressers", "CYP4F2", "NUDT15",
+    "all_five_panel", "reduced_panel",
+]
+COLUMNS = [
+    "quantity", "group", "estimate", "low", "high", "an", "flagged",
+    "weight_on_flagged_rows", "coverage", "sensitivity_low", "sensitivity_high",
+]
+CANADA = "Canada (weighted)"
+
 rows = []
 
-# Five genes across all ten population groups.
+# Gene rows: carrier probability for every gene, plus expressers for CYP3A5.
 for _, r in genes.iterrows():
-    is_cyp = r["gene"] == "CYP3A5"
-    rows.append({
-        "gene": "CYP3A5 (expressers)" if is_cyp else r["gene"],
-        "group": r["group"],
-        "carrier_rate": r["expresser"] if is_cyp else r["carrier"],
-        "low": r["expresser_low"] if is_cyp else r["carrier_low"],
-        "high": r["expresser_high"] if is_cyp else r["carrier_high"],
-        "sensitivity_low": "not applicable",
-        "sensitivity_high": "not applicable",
-    })
+    flagged = bool(r["low_an"]) or bool(r["few_alt"])
+    base = {"group": r["group"], "an": r["an"], "flagged": flagged}
 
-# Two panels across all ten groups.
-panel_names = {
-    "all_five": "all_five_panel",
-    "without_CYP3A5_VKORC1": "reduced_panel",
-}
+    assert abs(r["carrier"] - (1 - (1 - r["af"]) ** 2)) < 1e-9, "carrier formula mismatch"
+    rows.append({**base, "quantity": r["gene"], "estimate": r["carrier"],
+                 "low": r["carrier_low"], "high": r["carrier_high"]})
+
+    if r["gene"] == "CYP3A5":
+        assert abs(r["expresser"] - (1 - r["af"] ** 2)) < 1e-9, "expresser formula mismatch"
+        rows.append({**base, "quantity": "CYP3A5_expressers", "estimate": r["expresser"],
+                     "low": r["expresser_low"], "high": r["expresser_high"]})
+
+# Panel rows.
+PANELS = {"all_five": "all_five_panel", "without_CYP3A5_VKORC1": "reduced_panel"}
 for _, r in panels.iterrows():
-    rows.append({
-        "gene": panel_names[r["panel"]],
-        "group": r["group"],
-        "carrier_rate": r["panel_carrier"],
-        "low": r["panel_low"],
-        "high": r["panel_high"],
-        "sensitivity_low": "not applicable",
-        "sensitivity_high": "not applicable",
-    })
+    rows.append({"quantity": PANELS[r["panel"]], "group": r["group"],
+                 "estimate": r["panel_carrier"], "low": r["panel_low"], "high": r["panel_high"],
+                 "flagged": bool(r["any_low_an_or_few_alt"])})
 
-# Canada weighted estimates with sensitivity ranges excluding S1.
+# Canada rows (primary mapping) with the sensitivity range excluding S1.
 primary = national[national["scenario"] == "primary"]
 for _, r in primary.iterrows():
-    s = sensitivity.loc[sensitivity["quantity"] == r["quantity"]].iloc[0]
-    label = (
-        "CYP3A5 (expressers)"
-        if r["quantity"] == "CYP3A5_expressers"
-        else r["quantity"]
-    )
-    rows.append({
-        "gene": label,
-        "group": "Canada (weighted)",
-        "carrier_rate": r["national"],
-        "low": r["low"],
-        "high": r["high"],
-        "sensitivity_low": s["min_excluding_S1"],
-        "sensitivity_high": s["max_excluding_S1"],
-    })
+    s = sensitivity[sensitivity["quantity"] == r["quantity"]]
+    assert len(s) == 1, f"No unique sensitivity row for {r['quantity']}"
+    s = s.iloc[0]
+    rows.append({"quantity": r["quantity"], "group": CANADA,
+                 "estimate": r["national"], "low": r["low"], "high": r["high"],
+                 "weight_on_flagged_rows": r["weight_on_flagged_rows"], "coverage": r["coverage"],
+                 "sensitivity_low": s["min_excluding_S1"], "sensitivity_high": s["max_excluding_S1"]})
 
-result = pd.DataFrame(rows)
+result = pd.DataFrame(rows).reindex(columns=COLUMNS)
+result["quantity"] = pd.Categorical(result["quantity"], categories=QUANTITIES, ordered=True)
+result["_canada"] = result["group"] == CANADA
+result = result.sort_values(["_canada", "group", "quantity"]).drop(columns="_canada")
+result["quantity"] = result["quantity"].astype(str)
+result["an"] = result["an"].astype("Int64")
 
-# Checks: ten groups, seven quantities per group, and eight Canadian rows.
-expected = {
-    "ABCG2", "CYP3A5 (expressers)", "CYP4F2", "NUDT15", "VKORC1",
-    "all_five_panel", "reduced_panel",
-}
-groups = set(genes["group"].unique())
+# Checks.
+groups = sorted(genes["group"].unique())
 assert len(groups) == 10
-for group in groups:
-    assert set(result.loc[result["group"] == group, "gene"]) == expected
+for g in groups:
+    got = sorted(result.loc[result["group"] == g, "quantity"])
+    assert got == sorted(QUANTITIES), f"{g}: {got}"
+canada = result[result["group"] == CANADA]
+assert sorted(canada["quantity"]) == sorted(QUANTITIES)
+assert len(result) == 10 * 8 + 8, len(result)
+assert result[["estimate", "low", "high"]].notna().all().all()
+assert ((result["low"] <= result["estimate"] + 1e-12) & (result["estimate"] <= result["high"] + 1e-12)).all()
+assert result[["estimate", "low", "high"]].apply(lambda c: c.between(0, 1).all()).all()
+assert canada[["sensitivity_low", "sensitivity_high", "coverage", "weight_on_flagged_rows"]].notna().all().all()
+assert result.loc[result["group"] != CANADA, ["sensitivity_low", "sensitivity_high"]].isna().all().all()
+chk = canada.set_index("quantity")["estimate"]
+for q, v in primary.set_index("quantity")["national"].items():
+    assert abs(chk[q] - v) < 1e-12, q
 
-canada = result[result["group"] == "Canada (weighted)"]
-assert len(canada) == 8, f"Expected 8 Canadian rows; found {len(canada)}"
-assert set(canada["gene"]) == expected | {"CYP3A5"}
-
-assert not result[["carrier_rate", "low", "high"]].isna().any().any()
-assert not result[["sensitivity_low", "sensitivity_high"]].isna().any().any()
-
-result = result[
-    ["gene", "group", "carrier_rate", "low", "high",
-     "sensitivity_low", "sensitivity_high"]
-]
-result.to_csv(OUT, index=False)
-
+result.to_csv(OUT, index=False, float_format="%.6f")
 print(f"Saved: {OUT}")
-print(f"Total rows: {len(result)}")
-print(f"Population groups: {len(groups)}")
-print(f"Canada weighted rows: {len(canada)}")
+print("Total rows:", len(result), "| groups:", len(groups), "| quantities:", len(QUANTITIES), "| Canada rows:", len(canada))
+print("Flagged group rows:", int((result["flagged"] == True).sum()))
 print("All checks passed.")
-print("\nCanada weighted estimates:")
-print(canada.to_string(index=False))
