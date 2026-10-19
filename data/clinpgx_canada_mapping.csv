@@ -1,0 +1,12 @@
+clinpgx_group,census_group,mapping_status,reason,include_in_comparison
+European,,Excluded,Not a visible minority is not equivalent to European ancestry.,False
+East Asian,Chinese;Japanese;Korean,Approximate,Census categories do not fully represent all East Asian populations.,True
+African American/Afro-Caribbean,Black,Approximate,Broad population-label proxy; categories are not equivalent.,True
+Sub-Saharan African,Black,Approximate,Broad population-label proxy; aggregated with the other Black-mapped label.,True
+Near Eastern,Arab;West Asian,Approximate,Broad regional proxy; categories are not equivalent.,True
+Central/South Asian,South Asian,Approximate,Broad regional proxy; categories are not equivalent.,True
+Latino,Latin American,Approximate,Broad proxy; labels and census identity categories differ.,True
+American,,Excluded,Label is ambiguous and cannot be assigned defensibly.,False
+Multiple groups,,Excluded,Cannot assign to a single census category.,False
+Unknown,,Excluded,Population label is unknown or unspecified.,False
+Non-population / in vitro,,Excluded,Not a population category.,False

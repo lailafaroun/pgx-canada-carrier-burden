@@ -70,3 +70,22 @@ These estimates are descriptive approximations. Census identity categories shoul
 - Census ancestry categories do not map directly to gnomAD ancestry groups. Indigenous people cannot be separated from the “Not a visible minority” category in the selected census table.
 - European (Finnish), Remaining, Amish, and Ashkenazi Jewish gnomAD groups have no census weights in the current mapping.
 - Scenario ranges are descriptive sensitivity checks, not confidence intervals or a complete quantification of mapping uncertainty.
+
+
+## ClinPGx evidence-diversity analysis
+
+`scripts/16_evidence_counts.py` summarizes ClinPGx variant-drug annotations for the
+five genes by unique PMID × population-label pairs. The output is
+`data/evidence_counts.csv`. The comparison script
+`scripts/17_clinpgx_canada_comparison.py` creates `data/clinpgx_canada_mapping.csv`
+and `data/evidence_canada_comparison.csv`.
+
+The audit counted 880 unique PMID-population-label pairs overall; 363 were included
+in the restricted Canada comparison. The mapped census categories total 7,786,820
+people (21.43% of the 2021 census total in the selected table). The comparison
+excludes European evidence because the available labels cannot be defensibly aligned
+to the selected census categories, along with ambiguous and non-population labels.
+Shares are normalized within the mapped subsets. These are descriptive publication-
+label counts, not study-participant counts, and the comparison is not nationally
+representative. Population labels in the literature and census identity categories
+are approximate and not interchangeable.

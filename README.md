@@ -83,6 +83,29 @@ Weighted national estimates of the share of people carrying at least one copy of
 - VKORC1 and the all-five panel put 3.1% (primary) and 13.5% (S1: excludes “Not a visible minority”) of their weight on a group with a flagged row (VKORC1 in Middle Eastern, low allele number).
 - These are carriage estimates, not the share needing a prescribing change. In the primary mapping, "Not a visible minority" is assigned to European (non-Finnish) and includes Indigenous people; S1, which excludes “Not a visible minority,” is not a national estimate.
 
+## Pharmacogenomic evidence diversity
+
+ClinPGx study-population labels were summarized as unique publication (PMID) ×
+population-label pairs across annotations for the five genes. A publication may
+contribute to more than one population label. The analysis includes records labeled
+Unknown, Multiple groups, and Non-population / in vitro; these categories are not
+equivalent to identified ancestry groups.
+
+The Canada comparison maps only selected ClinPGx labels to approximate Statistics
+Canada population categories. European evidence is excluded from this comparison
+because it cannot be defensibly matched to the selected census categories; ambiguous
+and unclassified evidence labels are also excluded. The comparison contains 363
+mapped publication-population pairs out of 880 total pairs. The corresponding census
+categories cover 7,786,820 people, or 21.43% of Canada's 2021 population in the
+selected table. Evidence shares and census shares are each normalized within their
+own mapped subset.
+
+This is a descriptive comparison of evidence labels, not a count of study participants
+or a direct measure of research bias, evidence quality, or clinical outcomes. ClinPGx
+population labels and census identity categories are not equivalent. The restricted
+comparison is not nationally representative. See
+`data/evidence_canada_comparison.csv` and `data/clinpgx_canada_mapping.csv`.
+
 ## Results: Sensitivity Analysis
 
 S0 is the primary mapping. S1 excludes “Not a visible minority” and has only 21.43% coverage, so its range is shown separately from the range across S0 and S2–S5. These are scenario ranges, not confidence intervals.
@@ -114,7 +137,7 @@ S2 tests an expanded census mapping; S3 excludes flagged population groups per e
 | `sensitivity_low`, `sensitivity_high` | Canada rows: smallest and largest national estimate across the sensitivity scenarios other than S1 |
 
 ## Project Status
-In progress - setup, data check, variant table, gnomAD frequency extraction, VEP annotation, carrier estimates, panel estimates, census mapping, national estimates, sensitivity analysis and results table complete; evidence-diversity analysis and figures next
+Analysis complete: variant curation, gnomAD carrier estimates, panel estimates, Canadian census weighting, sensitivity analysis, ClinPGx evidence counts, evidence-to-census comparison, and figures. See SUMMARY.md for the main findings and limitations.
 
 ## Repository Structure
 - `README.md` - project documentation
