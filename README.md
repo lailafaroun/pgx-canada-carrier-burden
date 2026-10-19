@@ -52,7 +52,7 @@ The selected census table does not separately identify Indigenous people, who ar
 6. **Weight** by Statistics Canada population-group counts for a national estimate, with a sensitivity analysis on group mapping
 7. **Count** study populations in the evidence behind each gene-drug guideline
 
-Data processing is in Python; figures and statistics are in R.
+The consolidated results table combines gene-level carrier estimates, CYP3A5 expresser estimates, panel estimates, and weighted Canada estimates. Canada rows include the sensitivity range excluding S1, which omits the largest census category. Data processing is in Python; figures and statistics are in R.
 
 ## Environment Setup
 ```bash
@@ -99,11 +99,26 @@ S0 is the primary mapping. S1 excludes “Not a visible minority” and has only
 | reduced_panel | 61.666% | 2.560% | 1.668% |
 
 S2 tests an expanded census mapping; S3 excludes flagged population groups per estimate; S4 and S5 compare exome-only and genome-only frequencies. The ranges describe sensitivity to these analysis choices and should not be interpreted as sampling uncertainty.
+## Results Table
+
+`results/results_table.csv` has 88 rows: 8 quantities for each of the 10 gnomAD groups, plus 8 rows for Canada (weighted, primary mapping).
+
+| Column | Meaning |
+|---|---|
+| `quantity` | ABCG2, VKORC1, CYP3A5, CYP4F2 and NUDT15: carrying at least one copy of the variant allele; `CYP3A5_expressers`: at least one working copy; `all_five_panel` and `reduced_panel`: at least one of the variants |
+| `group` | gnomAD genetic ancestry group, or `Canada (weighted)` |
+| `estimate`, `low`, `high` | Estimate with 95% interval (Wilson bounds from the allele counts; gnomAD sampling uncertainty only) |
+| `an` | Allele number for the gene rows (blank for panels and Canada) |
+| `flagged` | True if the row has an allele number below 2,500 or fewer than 20 alternate alleles; for panels, if any contributing row is flagged |
+| `weight_on_flagged_rows`, `coverage` | Canada rows: share of the census weight on flagged groups; share of the census population covered by the mapping |
+| `sensitivity_low`, `sensitivity_high` | Canada rows: smallest and largest national estimate across the sensitivity scenarios other than S1 |
+
 ## Project Status
-Step 8 complete — scenario weights, S2–S5 sensitivity estimates, combined results, sensitivity summary and documentation complete. Project remains in progress for further interpretation and refinement.
+In progress - setup, data check, variant table, gnomAD frequency extraction, VEP annotation, carrier estimates, panel estimates, census mapping, national estimates, sensitivity analysis and results table complete; evidence-diversity analysis and figures next
 
 ## Repository Structure
 - `README.md` - project documentation
 - `scripts/` - Python data processing and R analysis scripts
 - `figures/` - saved plots and visualizations
+- `results/` - results table: estimates by gene and gnomAD group and for Canada (weighted), with intervals and sensitivity ranges
 - `data/` - variant table, data-availability note, gnomAD frequency tables, census and panel tables, and downloaded source files (raw files not tracked in git)
